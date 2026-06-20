@@ -46,7 +46,7 @@ class RiskManager:
 
         Returns:
             Alert message if breaker triggered, else None.
-       "
+        """
         if self._circuit_breaker_active:
             return "CIRCUIT_BREAKER_ACTIVE"
 
