@@ -83,8 +83,14 @@ async def main() -> None:
     parser.add_argument("--backtest", action="store_true", help="Run backtest")
     parser.add_argument("--once", action="store_true", help="Single health check")
     parser.add_argument("--interval", type=int, default=60, help="Daemon interval (seconds)")
+    parser.add_argument("--live", action="store_true", help="LIVE MODE: real money at risk")
 
     args = parser.parse_args()
+    
+    if args.live:
+        import os
+        os.environ["LIVE_MODE"] = "true"
+        print("LIVE MODE ENABLED - REAL MONEY AT RISK")
 
     if args.daemon:
         await run_daemon()
