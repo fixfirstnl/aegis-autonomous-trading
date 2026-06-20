@@ -81,6 +81,12 @@ class Daemon:
         margin_level = account.get("margin_level", 0)
         balance = account.get("balance", 0)
 
+        # Skip if no valid account data (margin_level=0 means no account logged in)
+        if margin_level == 0:
+            logger.warning("no_valid_account_data", equity=equity, margin_level=margin_level)
+            self.mt5.disconnect()
+            return
+
         # Check circuit breakers
         breaker = self.risk.check_circuit_breakers(equity, margin_level)
         if breaker:
